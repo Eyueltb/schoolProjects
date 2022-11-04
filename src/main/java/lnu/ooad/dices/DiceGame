@@ -1,0 +1,6 @@
+Requirement- Play a Dice-Game
+ The dice(has value from 1 to 6) are rolled and the result is presented.
+ If the sum is 7 then the player wins.
+
+ Improvements
+ 1. Apply separation of concern-> MV, MVC
