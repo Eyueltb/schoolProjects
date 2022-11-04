@@ -14,6 +14,6 @@ final public class Address {
     private  String zip;
     //Format the invoice
     public String format() {
-        return String.format("%s%n%n%s,%s%s", name, street, city,state, zip);
+        return String.format("%s%n%n%s, %s - %s", name, street, city,state, zip);
     }
 }
