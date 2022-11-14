@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * The task is to group members based on age, sex
+ * The rules are
+ *  1. Only one from same sex is allowed to member in a group
+ *  2. Only one from same age group is allowed
+ *  3. Only two old people is allowed in a group.
+ */
 public class GroupMain {
     public static void main(String[] args) {
 
@@ -35,7 +42,7 @@ class Group {
     private List<Person> members = new ArrayList<>();
 
     public Optional<String> addMember(Person applicant) {
-         AgeGroup applicantAgeGroup =  calculateAgeGroup(applicant);
+         AgeGroup applicantAgeGroup =  getAgeGroup(applicant);
          try {
              switch (applicantAgeGroup) {
                  case OLD -> verifyThatOnlyTwoOldPeopleAllowedInGroup();
@@ -57,7 +64,7 @@ class Group {
     }
 
     private void verifyOnlyOneFromSameSexAllowedInGroup(Person applicant) throws MemberShipDeniedException {
-        List<Sex> membersSexes =  listAllMembersSexesForAgeGroup(calculateAgeGroup(applicant));
+        List<Sex> membersSexes =  listAllMembersSexesForAgeGroup(getAgeGroup(applicant));
         if (membersSexes.contains(applicant.getSex()))
             throw new MemberShipDeniedException(" Already exist " + applicant.getSex() + " in a group! ");
     }
@@ -71,14 +78,14 @@ class Group {
     private List<AgeGroup> listAllMembersAgeGroups() {
         List<AgeGroup> ageGroups = new LinkedList<>();
         for (Person member : members) {
-            AgeGroup memberAgeGroup = calculateAgeGroup(member);
+            AgeGroup memberAgeGroup = getAgeGroup(member);
             if (!ageGroups.contains(memberAgeGroup))
                 ageGroups.add(memberAgeGroup);
         }
         return ageGroups;
     }
 
-    private AgeGroup calculateAgeGroup(Person person) {
+    private AgeGroup getAgeGroup(Person person) {
         if (person.getAge() <= 20)
             return AgeGroup.YOUNG;
         if (person.getAge() <= 50)
@@ -89,7 +96,7 @@ class Group {
     private int countAgeGroup(AgeGroup ageGroup) {
         int countAgeGroup = 0;
         for (Person member : members) {
-            AgeGroup memberAgeGroup = calculateAgeGroup(member);
+            AgeGroup memberAgeGroup = getAgeGroup(member);
             if (memberAgeGroup.equals(ageGroup))
                 countAgeGroup++;
         }
@@ -99,7 +106,7 @@ class Group {
     private List<Sex> listAllMembersSexesForAgeGroup(AgeGroup ageGroup) {
         List<Sex> ageGroups = new LinkedList<>();
         for (Person member : members) {
-            if (!ageGroups.contains(member.getSex()) && calculateAgeGroup(member).equals(ageGroup))
+            if (!ageGroups.contains(member.getSex()) && getAgeGroup(member).equals(ageGroup))
                 ageGroups.add(member.getSex());
         }
         return ageGroups;
