@@ -32,6 +32,8 @@ public class PersonMain {
         Person.groupByName(personList, Person::getName).keySet().stream().forEach(System.out::print);
         System.out.println("Group By by Age");
         Person.groupByAge(personList).keySet().stream().forEach(System.out::print);
+        System.out.println("Get names with upper older than 30");
+        Person.getNamesWithUpperCase(personList, p1->p1.getAge() > 30).forEach(System.out::println);
     }
 
 }
@@ -83,7 +85,17 @@ final class Person {
     static Map<Integer, List<Person>> groupByAge(List<Person> personList) {
         return personList.stream().collect(Collectors.groupingBy(Person::getAge));
     }
+
     static Map<String, List<Person>> groupByName(List<Person> personList, Function<Person, String> selector) {
         return personList.stream().collect(Collectors.groupingBy(selector));
+    }
+
+    /** Get list of names in upper case who are older than, for instance, 30 years old */
+    static List<String> getNamesWithUpperCase(List<Person> personList, Predicate<Person> selector) {
+        return personList.stream()
+                .filter(selector)
+                .map(Person::getName)
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
     }
 }

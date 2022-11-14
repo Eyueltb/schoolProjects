@@ -3,8 +3,8 @@ package ec.cars;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class CarMain {
@@ -36,10 +36,15 @@ class CarManufacturer {
     }
 
     public Car createCar(String model, Color color) {
+
         this.countCreatedCars++;
          Car c = new Car(brand, model, RegNo.create(), color);
          cars.add(c);
          return c;
+    }
+
+    private Optional<Car> findCarByRegNumber(String regNumber) {
+        return cars.stream().filter(c -> c.getRegNo().equals(regNumber)).findFirst();
     }
 
     @Override

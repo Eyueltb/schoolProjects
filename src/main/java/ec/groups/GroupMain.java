@@ -122,9 +122,6 @@ class Person {
     }
 }
 
-
-
-
 enum AgeGroup {
     YOUNG,
     MIDDLE,
