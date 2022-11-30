@@ -14,6 +14,7 @@ import java.util.Set;
  * duplicates([2, 1, 2, 1]) = [1, 2]
  */
 public class FindDuplicates {
+
     private static int[] duplicates(int [] arr) {
         Set<Integer> unique = new HashSet<>(); // to keep track of unique
         Set<Integer>  duplicate = new HashSet<>();  // to keep track of duplicate

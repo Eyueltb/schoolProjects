@@ -47,8 +47,15 @@ import java.util.*;
  * Find Subarrays With Equal Sum							Easy
  * Largest Positive Integer That Exists With Its Negative		Easy
  * Number of Distinct Averages							Easy
+ *
+ * Q4- Given a sorted array of unique integers and a target integer,
+ *   return true if there exists a pair of numbers that sum to target, false otherwise.
+ *   This problem is similar to Two Sum.
+ *   For example, given nums = [1, 2, 4, 6, 8, 9, 14, 15] and target = 13,
+ *   return true because 4 + 9 = 13.
  */
 public class TwoSum {
+
     /**
      * Given a list of numbers and a number k, return whether any two numbers from the list add up to k.
      * Given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.
@@ -71,10 +78,11 @@ public class TwoSum {
     private static int [] twoSumElement(int [] A, int K) {
         List<Integer> found = new ArrayList<>();
         for (int num : A) {
+            int complement = K - num;
             if (found.contains(num))
-                return new int[]{K - num, num};
+                return new int[]{complement, num};
             else
-                found.add(K-num);
+                found.add(complement);
         }
         throw new IllegalArgumentException("No match");
     }
@@ -91,6 +99,25 @@ public class TwoSum {
             result.put(A[i], i);
         }
         throw new IllegalArgumentException("No match");
+    }
+
+    /**
+     *  Given a sorted array of unique integers and a target integer,
+     *  return true if there exists a pair of numbers that sum to target, false otherwise.
+     *  Example - nums = [1, 2, 4, 6, 8, 9, 14, 15] and target = 13, return true because 4 + 9 = 13.
+     */
+    private static boolean twoSumUsingTwoPointers(int [] arr, int target) {
+        int left = 0, right = arr.length - 1;
+        while(left < right) {
+            int sum = arr[left] + arr[right];
+            if(sum == target)
+                return true;
+            else if(sum < target)
+                left++;
+            else
+                right--;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -112,5 +139,11 @@ public class TwoSum {
         Arrays.stream(twoSumIndex(new int[] { 5,3, 1, 7, 5,  9  }, 10)).forEach(i-> System.out.print(i + " "));
         System.out.println();
         Arrays.stream(twoSumIndex(new int[] {20, 2, 9, 1, 10, 2, 6, 8, 5, 7, 4, -7, 12, 14, 15 }, 18)).forEach(i-> System.out.print(i + " "));
+
+        System.out.println(twoSumUsingTwoPointers(new int[] { 1,2, 4, 6, 8, 9, 14, 15 }, 13));
+        System.out.println(twoSumUsingTwoPointers(new int[] { 1,2, 4, 6, 8, 9 }, 16));
+
+
+
     }
 }

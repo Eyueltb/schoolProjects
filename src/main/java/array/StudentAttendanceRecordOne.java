@@ -26,12 +26,17 @@ package array;
  */
 public class StudentAttendanceRecordOne {
 
-    public boolean checkRecord(String s) {
+    private static boolean checkRecord(String s) {
         int countAbsent = 0;
         for(int i = 0; i < s.length() && countAbsent < 2;  i++) { // to exit when
             if(s.charAt(i) =='A')
                 countAbsent++;
         }
         return countAbsent < 2 && !s.contains("LLL"); // index0f("LLL") < 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(checkRecord("PPALLP"));
+        System.out.println(checkRecord("PPALLL"));
     }
 }

@@ -36,7 +36,7 @@ package array;
  */
 public class BinaryGap {
 
-    public static int solution(int N) {
+    private static int solution(int N) {
         String binaryString = Integer.toBinaryString(N);  //Number to binary String
         boolean started = false;
         int count = 0, max = 0;
